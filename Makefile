@@ -1,11 +1,13 @@
 obj-m := nl_kernel.o
 
-KDIR = /lib/modules/`uname -r`/build
+OS_NAME ?= $(shell uname -r)
+
+KDIR = /lib/modules/$(OS_NAME)/build
 
 EXTRA_CFLAGS = -I $(PWD)/
 
 all:
-	make $(EXTRA_CFLAGS) -C $(KDIR) M=`pwd` modules
+	make $(EXTRA_CFLAGS) -C $(KDIR) M=$(PWD) modules
 
 clean:
-	make -C $(KDIR) M=`pwd` clean
+	make -C $(KDIR) M=$(PWD) clean
